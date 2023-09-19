@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Transaction {
+  id                Int      @id @default(autoincrement())
+  price             Float
+  description       String
+  payment_method    String
+  card_number       String
+  owner_name        String
+  card_expires_date DateTime
+  cvv               Int
+  Payable           Payable?
+
+  @@map("transaction")
+}
+
+model Payable {
+  id             Int         @id @default(autoincrement())
+  transaction    Transaction @relation(fields: [transaction_id], references: [id])
+  transaction_id Int         @unique
+  amount         Float
+  payment_date   DateTime
+  status         String
+  availability   String
+
+  @@map("payable")
+}
