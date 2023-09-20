@@ -1,6 +1,6 @@
 import { TransactionEntity } from '../../entities/transaction.entity';
+import { IBaseRepository } from './base-repository.interface';
 
-export interface ITransactionRepository {
-  create(payload: TransactionEntity): Promise<any>;
+export interface ITransactionRepository extends IBaseRepository<TransactionEntity> {
   getAll(): Promise<any>;
 }
