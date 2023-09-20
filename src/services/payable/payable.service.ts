@@ -5,8 +5,8 @@ import { IPayableRepository } from '../../repositories/interfaces/payable-reposi
 import { PayableStatusEnum } from '../../utils/payable-status.enum';
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { DatabaseError } from '../../errors/database-error';
-import { BaseError } from '../../errors/base-error';
 import { IPayables } from '../interfaces/payables.interface';
+import { BadRequestError } from '../../errors/bad-request-error';
 
 @injectable()
 export class PayableService implements IPayableService {
@@ -19,9 +19,9 @@ export class PayableService implements IPayableService {
       return await this.repository.create(payload);
     } catch (err: any) {
       if (err instanceof PrismaClientInitializationError || err instanceof PrismaClientKnownRequestError) {
-        throw new DatabaseError(`Can't reach database server,Server has closed the connection.`);
+        throw new DatabaseError(`Can't reach database server.`, 'database closed');
       }
-      throw new BaseError(`Houve um problema - ${err.message}`);
+      throw new BadRequestError(`Houve um problema`, err.message);
     }
   }
   async getAll(): Promise<IPayables> {
@@ -32,9 +32,9 @@ export class PayableService implements IPayableService {
       };
     } catch (err: any) {
       if (err instanceof PrismaClientInitializationError || err instanceof PrismaClientKnownRequestError) {
-        throw new DatabaseError(`Can't reach database server,Server has closed the connection.`);
+        throw new DatabaseError(`Can't reach database server.`, 'database closed');
       }
-      throw new BaseError(`Houve um problema - ${err.message}`);
+      throw new BadRequestError(`Houve um problema`, err.message);
     }
   }
   async getAllInfo(): Promise<PayableEntity[]> {
@@ -42,9 +42,9 @@ export class PayableService implements IPayableService {
       return await this.repository.getAllInfo();
     } catch (err: any) {
       if (err instanceof PrismaClientInitializationError || err instanceof PrismaClientKnownRequestError) {
-        throw new DatabaseError(`Can't reach database server,Server has closed the connection.`);
+        throw new DatabaseError(`Can't reach database server.`, 'database closed');
       }
-      throw new BaseError(`Houve um problema - ${err.message}`);
+      throw new BadRequestError(`Houve um problema`, err.message);
     }
   }
   reduce(array: PayableEntityProps[]): number {

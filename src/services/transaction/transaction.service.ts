@@ -5,9 +5,9 @@ import { CardEnum } from '../../utils/card.enum';
 import { ITransactionRepository } from '../../repositories/interfaces/transaction-repository.interface';
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { DatabaseError } from '../../errors/database-error';
-import { BaseError } from '../../errors/base-error';
 import { PayableEntity } from '../../entities/payable.entity';
 import { IPayableService } from '../interfaces/payable-service.interface';
+import { BadRequestError } from '../../errors/bad-request-error';
 
 @injectable()
 export class TransactionService implements ITransactionService {
@@ -37,9 +37,9 @@ export class TransactionService implements ITransactionService {
       }
     } catch (err: any) {
       if (err instanceof PrismaClientInitializationError || err instanceof PrismaClientKnownRequestError) {
-        throw new DatabaseError(`Can't reach database server,Server has closed the connection.`);
+        throw new DatabaseError(`Can't reach database server.`, 'database closed');
       }
-      throw new BaseError(`Houve um problema - ${err.message}`);
+      throw new BadRequestError(`Houve um problema`, err.message);
     }
   }
   async getAll(): Promise<TransactionEntity[]> {
@@ -47,9 +47,9 @@ export class TransactionService implements ITransactionService {
       return await this.repository.getAll();
     } catch (err: any) {
       if (err instanceof PrismaClientInitializationError || err instanceof PrismaClientKnownRequestError) {
-        throw new DatabaseError(`Can't reach database server,Server has closed the connection.`);
+        throw new DatabaseError(`Can't reach database server.`, 'database closed');
       }
-      throw new BaseError(`Houve um problema - ${err.message}`);
+      throw new BadRequestError(`Houve um problema`, err.message);
     }
   }
   setStatus(paymentmethod: string): string {

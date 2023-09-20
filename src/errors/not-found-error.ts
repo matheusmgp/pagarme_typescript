@@ -1,8 +1,11 @@
-import { BaseError } from './base-error';
+import { ErrorBase } from './error-base';
 
-export class NotFoundError extends BaseError {
-  constructor(public message: string) {
-    super(message);
-    this.name = 'NotFoundError';
+export class NotFoundError extends ErrorBase<'NOTFOUND_ERROR'> {
+  message: string;
+  cause: any;
+  constructor(message: string, cause: any) {
+    super({ name: 'NOTFOUND_ERROR', message, cause });
+    this.message = message;
+    this.cause = cause;
   }
 }

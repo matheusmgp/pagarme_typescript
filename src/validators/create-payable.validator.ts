@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { payableSchema } from './schemas/payable.schema';
-import { responseHttpException } from '../presenters/httpResponse';
+import { ResponseProps, responseHttpException } from '../presenters/http-exception.presenter';
 import { httpStatusCodes } from '../errors/status-code/http-status-code';
 
 export const createPayableSchema = (req: Request, res: Response, next: NextFunction) => {
@@ -15,12 +15,15 @@ export const createPayableSchema = (req: Request, res: Response, next: NextFunct
   const { error, value } = schema.validate(req.body, options);
 
   if (error) {
-    responseHttpException(
-      error.details.map((x: any) => x.message.replace('"', '').replace('"', '')),
-      req.method,
+    const props: ResponseProps = {
       res,
-      httpStatusCodes.UNPROCESSABLE_ENTITY
-    );
+      name: 'VALIDATION_ERROR',
+      cause: 'missing field',
+      statusCode: httpStatusCodes.UNPROCESSABLE_ENTITY,
+      message: error.details.map((x: any) => x.message.replace('"', '').replace('"', '')),
+      method: req.method,
+    };
+    responseHttpException(props);
   } else {
     req.body = value;
     next();
