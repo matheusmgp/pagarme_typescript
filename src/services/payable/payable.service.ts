@@ -7,7 +7,8 @@ import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '
 import { DatabaseError } from '../../errors/database-error';
 import { IPayables } from '../interfaces/payables.interface';
 import { BadRequestError } from '../../errors/bad-request-error';
-
+import Logger from '../../logger/logger';
+const logger = Logger.getInstance();
 @injectable()
 export class PayableService implements IPayableService {
   constructor(
@@ -15,6 +16,7 @@ export class PayableService implements IPayableService {
     private readonly repository: IPayableRepository
   ) {}
   async create(payload: PayableEntity): Promise<PayableEntity> {
+    logger.log('PayableService [CREATE]', payload);
     try {
       return await this.repository.create(payload);
     } catch (err: any) {
@@ -25,6 +27,7 @@ export class PayableService implements IPayableService {
     }
   }
   async getAll(): Promise<IPayables> {
+    logger.log('PayableService [GETALL]');
     try {
       return {
         available: this.reduce(await this.repository.getAll(PayableStatusEnum.AVAILABLE)),
@@ -38,6 +41,7 @@ export class PayableService implements IPayableService {
     }
   }
   async getAllInfo(): Promise<PayableEntity[]> {
+    logger.log('PayableService [getAllInfo]');
     try {
       return await this.repository.getAllInfo();
     } catch (err: any) {

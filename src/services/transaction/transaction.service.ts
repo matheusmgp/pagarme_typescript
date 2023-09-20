@@ -8,6 +8,8 @@ import { DatabaseError } from '../../errors/database-error';
 import { PayableEntity } from '../../entities/payable.entity';
 import { IPayableService } from '../interfaces/payable-service.interface';
 import { BadRequestError } from '../../errors/bad-request-error';
+import Logger from '../../logger/logger';
+const logger = Logger.getInstance();
 
 @injectable()
 export class TransactionService implements ITransactionService {
@@ -18,6 +20,7 @@ export class TransactionService implements ITransactionService {
     private readonly payableService: IPayableService
   ) {}
   async create(payload: TransactionEntityProps): Promise<any> {
+    logger.log('TransactionService [CREATE]', payload);
     const { price, payment_method } = payload;
     try {
       const transaction = await this.repository.create(TransactionEntity.createEntity(payload));
@@ -43,6 +46,7 @@ export class TransactionService implements ITransactionService {
     }
   }
   async getAll(): Promise<TransactionEntity[]> {
+    logger.log('TransactionService [GETALL]');
     try {
       return await this.repository.getAll();
     } catch (err: any) {
