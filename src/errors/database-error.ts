@@ -9,3 +9,13 @@ export class DatabaseError extends ErrorBase<'DATABASE_ERROR'> {
     this.cause = cause;
   }
 }
+
+export class DatabaseUnknowError extends DatabaseError {
+  message: string;
+  cause: any;
+  constructor(message: string, cause: any) {
+    super(message, cause);
+    this.message = message;
+    this.cause = cause;
+  }
+}

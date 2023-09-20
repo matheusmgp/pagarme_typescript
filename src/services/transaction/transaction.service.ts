@@ -3,8 +3,7 @@ import { ITransactionService } from '../interfaces/transaction-service.interface
 import { TransactionEntity, TransactionEntityProps } from '../../entities/transaction.entity';
 import { CardEnum } from '../../utils/card.enum';
 import { ITransactionRepository } from '../../repositories/interfaces/transaction-repository.interface';
-import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { DatabaseError } from '../../errors/database-error';
+import { DatabaseError, DatabaseUnknowError } from '../../errors/database-error';
 import { PayableEntity } from '../../entities/payable.entity';
 import { IPayableService } from '../interfaces/payable-service.interface';
 import { BadRequestError } from '../../errors/bad-request-error';
@@ -19,41 +18,33 @@ export class TransactionService implements ITransactionService {
     @inject('PayableService')
     private readonly payableService: IPayableService
   ) {}
-  async create(payload: TransactionEntityProps): Promise<any> {
+  async create(payload: TransactionEntityProps): Promise<TransactionEntity | undefined> {
     logger.log('TransactionService [CREATE]', payload);
     const { price, payment_method } = payload;
     try {
       const transaction = await this.repository.create(TransactionEntity.createEntity(payload));
 
-      if (transaction) {
-        const payableEntity = PayableEntity.createEntity({
-          transaction_id: transaction.id,
-          amount: this.calculateFee(payment_method, price),
-          payment_date: this.setPaymentDate(payment_method),
-          status: this.setStatus(payment_method),
-          availability: this.setAvailability(payment_method),
-        });
+      const payableEntity = PayableEntity.createEntity({
+        transaction_id: transaction.id,
+        amount: this.calculateFee(payment_method, price),
+        payment_date: this.setPaymentDate(payment_method),
+        status: this.setStatus(payment_method),
+        availability: this.setAvailability(payment_method),
+      });
 
-        const payable = await this.payableService.create(payableEntity);
+      await this.payableService.create(payableEntity);
 
-        if (payable) return transaction;
-      }
+      return transaction;
     } catch (err: any) {
-      if (err instanceof PrismaClientInitializationError || err instanceof PrismaClientKnownRequestError) {
-        throw new DatabaseError(`Can't reach database server.`, 'database closed');
-      }
-      throw new BadRequestError(`Houve um problema`, err.message);
+      this.handleError(err);
     }
   }
-  async getAll(): Promise<TransactionEntity[]> {
+  async getAll(): Promise<TransactionEntity[] | undefined> {
     logger.log('TransactionService [GETALL]');
     try {
       return await this.repository.getAll();
     } catch (err: any) {
-      if (err instanceof PrismaClientInitializationError || err instanceof PrismaClientKnownRequestError) {
-        throw new DatabaseError(`Can't reach database server.`, 'database closed');
-      }
-      throw new BadRequestError(`Houve um problema`, err.message);
+      this.handleError(err);
     }
   }
   setStatus(paymentmethod: string): string {
@@ -71,5 +62,14 @@ export class TransactionService implements ITransactionService {
   }
   setAvailability(paymentmethod: string): string {
     return paymentmethod === CardEnum.DEBIT ? 'available' : 'waiting_funds';
+  }
+  protected handleError(err: any): void {
+    if (err instanceof DatabaseError) {
+      throw new DatabaseError(err.message, err.cause);
+    }
+    if (err instanceof DatabaseUnknowError) {
+      throw new DatabaseUnknowError(`Houve um problema`, err.cause);
+    }
+    throw new BadRequestError(`Houve um problema`, err.cause);
   }
 }

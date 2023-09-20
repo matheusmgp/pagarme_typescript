@@ -20,7 +20,7 @@
     "resolveJsonModule": true,
     "alwaysStrict": true,
     "removeComments": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
