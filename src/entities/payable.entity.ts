@@ -13,7 +13,7 @@ export class PayableEntity extends BaseEntity {
   payment_date: Date;
   status: string;
   availability: string;
-  constructor(props: PayableEntityProps) {
+  private constructor(props: PayableEntityProps) {
     super();
     this.transaction_id = props.transaction_id;
     this.amount = props.amount;

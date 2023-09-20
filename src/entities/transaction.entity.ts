@@ -18,7 +18,7 @@ export class TransactionEntity extends BaseEntity {
   owner_name: string;
   card_expires_date: Date;
   cvv: number | string;
-  constructor(props: TransactionEntityProps) {
+  private constructor(props: TransactionEntityProps) {
     super(props.id);
     this.id = props.id;
     this.price = props.price;

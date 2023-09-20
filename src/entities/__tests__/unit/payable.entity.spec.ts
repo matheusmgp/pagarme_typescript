@@ -12,7 +12,7 @@ describe('PayableEntity unit tests', () => {
       status: 'paid',
       availability: 'available',
     };
-    sut = new PayableEntity(props);
+    sut = PayableEntity.createEntity(props);
   });
 
   it('toJSON  method', () => {
