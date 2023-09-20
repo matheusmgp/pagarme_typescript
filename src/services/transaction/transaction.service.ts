@@ -42,7 +42,7 @@ export class TransactionService implements ITransactionService {
       throw new BaseError(`Houve um problema - ${err.message}`);
     }
   }
-  async getAll(): Promise<any> {
+  async getAll(): Promise<TransactionEntity[]> {
     try {
       return await this.repository.getAll();
     } catch (err: any) {

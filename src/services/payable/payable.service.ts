@@ -6,6 +6,7 @@ import { PayableStatusEnum } from '../../utils/payable-status.enum';
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { DatabaseError } from '../../errors/database-error';
 import { BaseError } from '../../errors/base-error';
+import { IPayables } from '../interfaces/payables.interface';
 
 @injectable()
 export class PayableService implements IPayableService {
@@ -13,7 +14,7 @@ export class PayableService implements IPayableService {
     @inject('PayableRepository')
     private readonly repository: IPayableRepository
   ) {}
-  async create(payload: PayableEntity): Promise<any> {
+  async create(payload: PayableEntity): Promise<PayableEntity> {
     try {
       return await this.repository.create(payload);
     } catch (err: any) {
@@ -23,7 +24,7 @@ export class PayableService implements IPayableService {
       throw new BaseError(`Houve um problema - ${err.message}`);
     }
   }
-  async getAll(): Promise<any> {
+  async getAll(): Promise<IPayables> {
     try {
       return {
         available: this.reduce(await this.repository.getAll(PayableStatusEnum.AVAILABLE)),
@@ -36,7 +37,7 @@ export class PayableService implements IPayableService {
       throw new BaseError(`Houve um problema - ${err.message}`);
     }
   }
-  async getAllInfo(): Promise<any> {
+  async getAllInfo(): Promise<PayableEntity[]> {
     try {
       return await this.repository.getAllInfo();
     } catch (err: any) {
@@ -46,7 +47,7 @@ export class PayableService implements IPayableService {
       throw new BaseError(`Houve um problema - ${err.message}`);
     }
   }
-  reduce(array: PayableEntityProps[]): any {
+  reduce(array: PayableEntityProps[]): number {
     return array.reduce((accumulator, object) => {
       return accumulator + object.amount;
     }, 0);

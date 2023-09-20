@@ -7,6 +7,7 @@ import { ITransactionService } from '../../services/interfaces/transaction-servi
 import { PayableService } from '../../services/payable/payable.service';
 import { TransactionService } from '../../services/transaction/transaction.service';
 import { container } from 'tsyringe';
+
 /**
  * REPOSITORIES
  */

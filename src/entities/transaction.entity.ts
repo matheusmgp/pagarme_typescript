@@ -1,6 +1,7 @@
 import { BaseEntity } from './base.entity';
 
 export type TransactionEntityProps = {
+  id?: number;
   price: number;
   description: string;
   payment_method: string;
@@ -18,7 +19,8 @@ export class TransactionEntity extends BaseEntity {
   card_expires_date: Date;
   cvv: number | string;
   constructor(props: TransactionEntityProps) {
-    super();
+    super(props.id);
+    this.id = props.id;
     this.price = props.price;
     this.description = props.description;
     this.payment_method = props.payment_method;
@@ -30,6 +32,7 @@ export class TransactionEntity extends BaseEntity {
   }
   toJSON(): any {
     return {
+      id: this.id,
       price: this.price,
       description: this.description,
       payment_method: this.payment_method,
