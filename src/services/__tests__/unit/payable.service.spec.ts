@@ -45,4 +45,18 @@ describe('PayableService unit tests', () => {
     ]);
     expect(amount_).toStrictEqual(300000);
   });
+  it('should return the number rounded', () => {
+    let amount_ = sut.roundNumber(10.0);
+    expect(amount_).toStrictEqual(10);
+    amount_ = sut.roundNumber(10.015);
+    expect(amount_).toStrictEqual(10.02);
+    amount_ = sut.roundNumber(10.15222);
+    expect(amount_).toStrictEqual(10.15);
+    amount_ = sut.roundNumber(10);
+    expect(amount_).toStrictEqual(10);
+    amount_ = sut.roundNumber(867552.4481);
+    expect(amount_).toStrictEqual(867552.45);
+    amount_ = sut.roundNumber(321687.3432);
+    expect(amount_).toStrictEqual(321687.34);
+  });
 });

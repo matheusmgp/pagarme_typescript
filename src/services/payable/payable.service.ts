@@ -26,17 +26,19 @@ export class PayableService implements IPayableService {
     logger.log('PayableService [GETALL]');
     try {
       return {
-        available: this.reduce(await this.repository.getAll(PayableStatusEnum.AVAILABLE)),
-        waiting_funds: this.reduce(await this.repository.getAll(PayableStatusEnum.WAITING_FUNDS)),
+        available: this.roundNumber(this.reduce(await this.repository.getAll(PayableStatusEnum.AVAILABLE))),
+        waiting_funds: this.roundNumber(this.reduce(await this.repository.getAll(PayableStatusEnum.WAITING_FUNDS))),
       };
     } catch (err: any) {
       this.handleError(err);
     }
   }
   async getAllInfo(): Promise<PayableEntity[] | undefined> {
-    logger.log('PayableService [getAllInfo]');
+    logger.log('PayableService [GETALLINFO]');
     try {
-      return await this.repository.getAllInfo();
+      const payables = await this.repository.getAllInfo();
+      payables.map((item: PayableEntity) => (item.amount = this.roundNumber(item.amount)));
+      return payables;
     } catch (err: any) {
       this.handleError(err);
     }
@@ -54,5 +56,9 @@ export class PayableService implements IPayableService {
       throw new DatabaseUnknowError(`Houve um problema`, err.cause);
     }
     throw new BadRequestError(`Houve um problema`, err.cause);
+  }
+
+  roundNumber(value: number): number {
+    return Math.round(value * 100) / 100;
   }
 }

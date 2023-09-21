@@ -33,7 +33,6 @@ export class TransactionService implements ITransactionService {
       });
 
       await this.payableService.create(payableEntity);
-
       return transaction;
     } catch (err: any) {
       this.handleError(err);

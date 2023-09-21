@@ -10,11 +10,11 @@ export class DatabaseError extends ErrorBase<'DATABASE_ERROR'> {
   }
 }
 
-export class DatabaseUnknowError extends DatabaseError {
+export class DatabaseUnknowError extends ErrorBase<'DATABASE_ERROR'> {
   message: string;
   cause: any;
   constructor(message: string, cause: any) {
-    super(message, cause);
+    super({ name: 'DATABASE_ERROR', message, cause });
     this.message = message;
     this.cause = cause;
   }

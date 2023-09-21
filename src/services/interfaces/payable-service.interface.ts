@@ -6,4 +6,5 @@ export interface IPayableService {
   getAll(): Promise<IPayables | undefined>;
   getAllInfo(): Promise<PayableEntity[] | undefined>;
   reduce(array: PayableEntityProps[]): number;
+  roundNumber(value: number): number;
 }

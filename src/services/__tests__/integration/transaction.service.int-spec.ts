@@ -26,7 +26,7 @@ describe('Transaction integration tests', () => {
     payableService = new PayableService(payableRepo);
     sut = new TransactionService(repository, payableService);
     entity = TransactionEntity.createEntity({
-      price: 100.0,
+      price: 100.5,
       description: 'Smartband XYZ 3.0',
       payment_method: CardEnum.DEBIT,
       card_number: '12345678910',
@@ -42,10 +42,9 @@ describe('Transaction integration tests', () => {
 
   it('should create a Transaction and Payable ', async () => {
     const transaction = await sut.create(entity);
-    console.log(transaction);
     expect(transaction).toStrictEqual({
       id: expect.any(Number),
-      price: 100,
+      price: 100.5,
       description: 'Smartband XYZ 3.0',
       payment_method: CardEnum.DEBIT,
       card_number: '*******8910',
@@ -54,14 +53,14 @@ describe('Transaction integration tests', () => {
       cvv: 855,
     });
   });
-  /* it('should set 5% of fee when using credit_card', async () => {
+  it('should set 5% of fee when using credit_card', async () => {
     await sut.create({ ...entity, payment_method: CardEnum.CREDIT });
     const payable = await payableService.getAll();
-    expect(payable).toStrictEqual({ available: 0, waiting_funds: 95 });
+    expect(payable).toStrictEqual({ available: 0, waiting_funds: 95.48 });
   });
   it('should set 3% of fee when using debit_card', async () => {
     await sut.create({ ...entity, payment_method: CardEnum.DEBIT });
     const payable = await payableService.getAll();
-    expect(payable).toStrictEqual({ available: 97, waiting_funds: 0 });
-  });*/
+    expect(payable).toStrictEqual({ available: 97.49, waiting_funds: 0 });
+  });
 });
