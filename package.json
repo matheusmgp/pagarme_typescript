@@ -8,7 +8,7 @@
     "test:e2e": "npx dotenv-cli -e .env.test -- jest --config ./jest-e2e.config.ts --runInBand",
     "test:int": "npx dotenv-cli -e .env.test -- jest --config ./jest-int.config.ts --runInBand",
     "test:unit": "jest --config ./jest.config.ts ",
-    "test": "npx dotenv-cli -e .env.test -- jest --runInBand"
+    "test": "npx dotenv-cli -e .env.test -- jest --config ./jest-all.config.ts --runInBand"
   },
   "keywords": [],
   "author": "",
