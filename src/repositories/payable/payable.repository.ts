@@ -1,10 +1,10 @@
-import { PayableEntity } from '../../entities/payable.entity';
 import { IPayableRepository } from '../interfaces/payable-repository.interface';
 import { PrismaService } from '../../services/prisma/prisma.service';
 import { injectable } from 'tsyringe';
 import { Repository } from '../prisma.repository';
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { DatabaseError, DatabaseUnknowError } from '../../errors/database-error';
+import { PayableEntity } from '@src/entities/payable.entity';
 @injectable()
 export class PayableRepository extends Repository<PayableEntity> implements IPayableRepository {
   constructor(private readonly prismaService: PrismaService) {

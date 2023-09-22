@@ -6,7 +6,7 @@ export class PayableRoutes {
   public router: Router;
 
   constructor() {
-    this.router = express.Router();
+    this.router = Router();
     this.registerRoutes();
   }
 
