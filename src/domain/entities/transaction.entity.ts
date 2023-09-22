@@ -1,4 +1,4 @@
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from '.';
 
 export type TransactionEntityProps = {
   id?: number;

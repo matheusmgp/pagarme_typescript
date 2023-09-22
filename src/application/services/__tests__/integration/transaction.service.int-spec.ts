@@ -1,16 +1,15 @@
 import 'reflect-metadata';
-
-import { ITransactionService } from '@src/application/services/interfaces/transaction-service.interface';
-import { PrismaService } from '@src/infrastructure/services/prisma/prisma.service';
-import { TransactionService } from '@src/application/services/transaction/transaction.service';
+import { ITransactionService } from '@src/application/services';
+import { PrismaService } from '@src/infrastructure/services';
+import { TransactionService } from '@src/application/services';
 import { CardEnum } from '@src/shared/utils/card.enum';
-import { IPayableService } from '@src/application/services/interfaces/payable-service.interface';
-import { PayableService } from '@src/application/services/payable/payable.service';
-import { TransactionEntity } from '@src/domain';
-import { ITransactionRepository } from '@src/infrastructure/repositories/interfaces/transaction-repository.interface';
-import { IPayableRepository } from '@src/infrastructure/repositories/interfaces/payable-repository.interface';
-import { TransactionRepository } from '@src/infrastructure/repositories/transaction/transaction.repository';
-import { PayableRepository } from '@src/infrastructure/repositories/payable/payable.repository';
+import { IPayableService } from '@src/application/services';
+import { PayableService } from '@src/application/services';
+import { TransactionEntity } from '@src/domain/entities';
+import { ITransactionRepository } from '@src/infrastructure/repositories';
+import { IPayableRepository } from '@src/infrastructure/repositories';
+import { TransactionRepository } from '@src/infrastructure/repositories';
+import { PayableRepository } from '@src/infrastructure/repositories';
 
 describe('Transaction integration tests', () => {
   let sut: ITransactionService;

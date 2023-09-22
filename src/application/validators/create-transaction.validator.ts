@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { transactionSchema } from './schemas/transaction.schema';
-import { ResponseProps, responseHttpException } from '../presenters/http-exception.presenter';
+import { ResponseProps, responseHttpException } from '../presenters';
 import { httpStatusCodes } from '../../shared/status-code';
 
 export const createTransactionSchema = (req: Request, res: Response, next: NextFunction) => {

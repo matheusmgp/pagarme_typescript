@@ -1,10 +1,10 @@
 import 'reflect-metadata';
-import { ITransactionService } from '@src/application/services/interfaces/transaction-service.interface';
-import { TransactionService } from '@src/application/services/transaction/transaction.service';
+import { ITransactionService } from '@src/application/services';
+import { TransactionService } from '@src/application/services';
 import { CardEnum } from '@src/shared/utils/card.enum';
-import { IPayableService } from '@src/application/services/interfaces/payable-service.interface';
-import { ITransactionRepository } from '@src/infrastructure/repositories/interfaces/transaction-repository.interface';
-import { TransactionEntityProps } from '@src/domain/entities/transaction.entity';
+import { IPayableService } from '@src/application/services';
+import { ITransactionRepository } from '@src/infrastructure/repositories';
+import { TransactionEntityProps } from '@src/domain/entities';
 
 describe('TransactionService unit tests', () => {
   let sut: ITransactionService;

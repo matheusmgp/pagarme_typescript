@@ -1,12 +1,12 @@
 import { inject, injectable } from 'tsyringe';
 import { ITransactionService } from '../interfaces/transaction-service.interface';
-import { TransactionEntity, TransactionEntityProps } from '../../../domain';
+import { TransactionEntity, TransactionEntityProps } from '../../../domain/entities';
 import { CardEnum } from '../../../shared/utils';
 import { ITransactionRepository } from '../../../infrastructure/repositories';
-import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors/database-error';
-import { PayableEntity } from '../../../domain';
+import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors';
+import { PayableEntity } from '../../../domain/entities';
 import { IPayableService } from '../interfaces/payable-service.interface';
-import { BadRequestError } from '../../../shared/errors/bad-request-error';
+import { BadRequestError } from '../../../shared/errors';
 import Logger from '../../../shared/logger/logger';
 const logger = Logger.getInstance();
 

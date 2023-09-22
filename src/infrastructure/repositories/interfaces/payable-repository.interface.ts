@@ -1,4 +1,4 @@
-import { PayableEntity } from '../../../domain';
+import { PayableEntity } from '../../../domain/entities';
 import { IBaseRepository } from './base-repository.interface';
 
 export interface IPayableRepository extends IBaseRepository<PayableEntity> {

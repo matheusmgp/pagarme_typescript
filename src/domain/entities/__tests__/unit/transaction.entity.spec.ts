@@ -1,5 +1,5 @@
 import { CardEnum } from '@src/shared/utils';
-import { TransactionEntity, TransactionEntityProps } from '../../transaction.entity';
+import { TransactionEntity, TransactionEntityProps } from '../../.';
 
 describe('TransactionEntity unit tests', () => {
   let sut: TransactionEntity;

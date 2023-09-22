@@ -1,11 +1,11 @@
-import { PayableEntity, PayableEntityProps } from '../../../domain';
+import { PayableEntity, PayableEntityProps } from '../../../domain/entities';
 import { IPayableService } from '../interfaces/payable-service.interface';
 import { inject, injectable } from 'tsyringe';
-import { IPayableRepository } from '../../../infrastructure/repositories/';
+import { IPayableRepository } from '../../../infrastructure/repositories';
 import { PayableStatusEnum } from '../../../shared/utils';
-import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors/database-error';
+import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors';
 import { IPayables } from '../interfaces/payables.interface';
-import { BadRequestError } from '../../../shared/errors/bad-request-error';
+import { BadRequestError } from '../../../shared/errors';
 import Logger from '../../../shared/logger/logger';
 
 const logger = Logger.getInstance();

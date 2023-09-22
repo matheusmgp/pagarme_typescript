@@ -3,8 +3,8 @@ import { PrismaService } from '../../services';
 import { injectable } from 'tsyringe';
 import { Repository } from '../prisma.repository';
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors/database-error';
-import { PayableEntity } from '../../../domain';
+import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors';
+import { PayableEntity } from '../../../domain/entities';
 
 @injectable()
 export class PayableRepository extends Repository<PayableEntity> implements IPayableRepository {

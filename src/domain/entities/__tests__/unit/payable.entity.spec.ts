@@ -1,4 +1,4 @@
-import { PayableEntity, PayableEntityProps } from '../../payable.entity';
+import { PayableEntity, PayableEntityProps } from '../../.';
 
 describe('PayableEntity unit tests', () => {
   let sut: PayableEntity;

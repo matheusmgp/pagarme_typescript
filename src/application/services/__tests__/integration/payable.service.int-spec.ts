@@ -1,12 +1,12 @@
 import 'reflect-metadata';
-import { PrismaService } from '@src/infrastructure/services/prisma/prisma.service';
+import { PrismaService } from '@src/infrastructure/services';
 import { CardEnum } from '@src/shared/utils/card.enum';
-import { IPayableService } from '@src/application/services/interfaces/payable-service.interface';
-import { PayableService } from '@src/application/services/payable/payable.service';
-import { TransactionEntity } from '@src/domain';
-import { PayableEntity } from '@src/domain';
-import { IPayableRepository } from '@src/infrastructure/repositories/interfaces/payable-repository.interface';
-import { PayableRepository } from '@src/infrastructure/repositories/payable/payable.repository';
+import { IPayableService } from '@src/application/services';
+import { PayableService } from '@src/application/services';
+import { TransactionEntity } from '@src/domain/entities';
+import { PayableEntity } from '@src/domain/entities';
+import { IPayableRepository } from '@src/infrastructure/repositories';
+import { PayableRepository } from '@src/infrastructure/repositories';
 
 describe('Payable integration tests', () => {
   let sut: IPayableService;

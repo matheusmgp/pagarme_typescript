@@ -1,4 +1,4 @@
-import { TransactionEntity, TransactionEntityProps } from '../../../domain';
+import { TransactionEntity, TransactionEntityProps } from '../../../domain/entities';
 
 export interface ITransactionService {
   create(payload: TransactionEntityProps): Promise<TransactionEntity | undefined>;

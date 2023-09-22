@@ -1,8 +1,8 @@
 import 'reflect-metadata';
-import { IPayableService } from '@src/application/services/interfaces/payable-service.interface';
-import { PayableService } from '@src/application/services/payable/payable.service';
-import { IPayableRepository } from '@src/infrastructure/repositories/interfaces/payable-repository.interface';
-import { PayableEntityProps } from '@src/domain/entities/payable.entity';
+import { IPayableService } from '@src/application/services';
+import { PayableService } from '@src/application/services';
+import { IPayableRepository } from '@src/infrastructure/repositories';
+import { PayableEntityProps } from '@src/domain/entities';
 
 describe('PayableService unit tests', () => {
   let sut: IPayableService;

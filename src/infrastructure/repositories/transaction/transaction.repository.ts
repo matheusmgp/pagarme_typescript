@@ -1,10 +1,10 @@
 import { PrismaService } from '../../services';
 import { ITransactionRepository } from '../interfaces/transaction-repository.interface';
-import { TransactionEntity } from '../../../domain';
+import { TransactionEntity } from '../../../domain/entities';
 import { injectable } from 'tsyringe';
 import { Repository } from '../prisma.repository';
 import { PrismaClientInitializationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
-import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors/database-error';
+import { DatabaseError, DatabaseUnknowError } from '../../../shared/errors';
 
 @injectable()
 export class TransactionRepository extends Repository<TransactionEntity> implements ITransactionRepository {

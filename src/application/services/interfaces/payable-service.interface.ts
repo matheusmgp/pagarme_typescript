@@ -1,4 +1,4 @@
-import { PayableEntity, PayableEntityProps } from '../../../domain';
+import { PayableEntity, PayableEntityProps } from '../../../domain/entities';
 import { IPayables } from './payables.interface';
 
 export interface IPayableService {
