@@ -1,9 +1,9 @@
-import { Router, Express } from 'express';
+import { Router, Application } from 'express';
 import { PayableRoutes } from './payable.route';
 import { NotFoundRoutes } from './not-found.route';
 import { TransactionRoutes } from './transaction.route';
 
-export const setupRoutes = (app: Express): void => {
+export const setupRoutes = (app: Application): void => {
   const router = Router();
 
   router.use(new PayableRoutes().router);

@@ -21,8 +21,7 @@ export class PayableEntity extends BaseEntity {
     this.status = props.status;
     this.availability = props.availability;
   }
-
-  toJSON() {
+  override toJSON() {
     return {
       transaction_id: this.transaction_id,
       amount: this.amount,
@@ -31,7 +30,7 @@ export class PayableEntity extends BaseEntity {
       availability: this.availability,
     };
   }
-  static createEntity = (props: PayableEntityProps) => {
+  static override createEntity(props: PayableEntityProps): PayableEntity {
     return new PayableEntity(props);
-  };
+  }
 }

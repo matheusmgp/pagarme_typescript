@@ -30,7 +30,7 @@ export class TransactionEntity extends BaseEntity {
     this.cvv = props.cvv;
     this.maskCardNumber();
   }
-  toJSON(): any {
+  override toJSON(): any {
     return {
       id: this.id,
       price: this.price,
@@ -45,7 +45,7 @@ export class TransactionEntity extends BaseEntity {
   maskCardNumber(): void {
     this.card_number = '*'.repeat(this.card_number.length - 4) + this.card_number.slice(-4);
   }
-  static createEntity = (props: TransactionEntityProps): TransactionEntity => {
+  static override createEntity = (props: TransactionEntityProps): TransactionEntity => {
     return new TransactionEntity(props);
   };
 }

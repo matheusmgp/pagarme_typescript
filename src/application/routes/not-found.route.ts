@@ -1,16 +1,15 @@
 import { httpStatusCodes } from '../../shared/status-code';
 import { ResponseProps, responseHttpException } from '../presenters/http-exception.presenter';
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
+import { BaseRoutes } from './base.route';
 
-export class NotFoundRoutes {
-  public router: Router;
-
+export class NotFoundRoutes extends BaseRoutes {
   constructor() {
-    this.router = Router();
+    super();
     this.registerRoutes();
   }
 
-  protected registerRoutes(): void {
+  override registerRoutes(): void {
     this.router.use((req: Request, res: Response) => {
       const props: ResponseProps = {
         res,

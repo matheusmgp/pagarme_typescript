@@ -1,16 +1,15 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { PayableController } from '../controllers';
+import { BaseRoutes } from './base.route';
 
-export class PayableRoutes {
-  public router: Router;
-
+export class PayableRoutes extends BaseRoutes {
   constructor() {
-    this.router = Router();
+    super();
     this.registerRoutes();
   }
 
-  protected registerRoutes(): void {
+  override registerRoutes(): void {
     this.router.get('/payable', this.getAll);
     this.router.get('/payable/info', this.getAllInfo);
   }
