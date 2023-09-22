@@ -1,6 +1,6 @@
 import './config/module-alias';
 import app from './index';
-import Logger from './logger/logger';
+import Logger from './shared/logger/logger';
 
 const logger = Logger.getInstance();
 logger.setConfig({

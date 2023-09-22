@@ -1,11 +1,11 @@
-import { IPayableRepository } from '../../repositories/interfaces/payable-repository.interface';
-import { ITransactionRepository } from '../../repositories/interfaces/transaction-repository.interface';
-import { PayableRepository } from '../../repositories/payable/payable.repository';
-import { TransactionRepository } from '../../repositories/transaction/transaction.repository';
-import { IPayableService } from '../../services/interfaces/payable-service.interface';
-import { ITransactionService } from '../../services/interfaces/transaction-service.interface';
-import { PayableService } from '../../services/payable/payable.service';
-import { TransactionService } from '../../services/transaction/transaction.service';
+import { IPayableRepository } from '../../infrastructure/repositories';
+import { ITransactionRepository } from '../../infrastructure/repositories';
+import { PayableRepository } from '../../infrastructure/repositories';
+import { TransactionRepository } from '../../infrastructure/repositories';
+import { IPayableService } from '../../application/services';
+import { ITransactionService } from '../../application/services';
+import { PayableService } from '../../application/services';
+import { TransactionService } from '../../application/services';
 import { container } from 'tsyringe';
 
 /**
