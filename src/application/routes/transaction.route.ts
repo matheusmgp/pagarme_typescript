@@ -1,17 +1,15 @@
 import { createTransactionSchema } from '../validators';
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { TransactionController } from '../controllers';
+import { BaseRoutes } from './base.route';
 
-export class TransactionRoutes {
-  public router: Router;
-
+export class TransactionRoutes extends BaseRoutes {
   constructor() {
-    this.router = Router();
+    super();
     this.registerRoutes();
   }
-
-  protected registerRoutes(): void {
+  override registerRoutes(): void {
     this.router.get('/transaction', this.getAll);
     this.router.post('/transaction', createTransactionSchema, this.create);
   }
